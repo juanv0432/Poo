@@ -1,0 +1,9 @@
+from Viajerofrec import ViajeroFrecuente
+from ManejadorViajero import manejadorViajero
+if __name__=='__main__':
+
+    viajero=ViajeroFrecuente(input('ingrese el numero de viajero: '), input('ingrese el DNI: '), input('ingrese el nombre: '), input('ingrese el apellido: '), 0)
+    mv=manejadorViajero()
+    mv.testViajero()
+    mv.mostrarViajeros()
+    mv.menu()

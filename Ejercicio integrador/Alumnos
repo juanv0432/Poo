@@ -1,0 +1,26 @@
+class alumno:
+    __dni=''
+    __apellido=''
+    __nombre=''
+    __carrera=''
+    __anioCursa=0
+    def __init__(self,dni,apellido,nombre,carrera,anioCursa):
+        self.__dni=dni
+        self.__apellido=apellido
+        self.__nombre=nombre
+        self.__carrera=carrera
+        self.__anioCursa=anioCursa
+    def __str__(self):
+        return('DNI {} Apellido y nombre {} {} Carrera {} año que cursa {}'.format(self.__dni,self.__apellido,self.__nombre,self.__carrera,self.__anioCursa))
+    def __lt__(self,otro):
+        return (self.__anioCursa, (self.__apellido + self.__nombre)) < (otro.getanio(), (otro.get_nomap()))
+    def getdni(self):
+        return self.__dni
+    def getnom(self):
+        return self.__nombre
+    def getape(self):
+        return self.__apellido
+    def getanio(self):
+        return self.__anioCursa
+    def getnomap(self):
+        return self.__apellido+" "+self.__nombre

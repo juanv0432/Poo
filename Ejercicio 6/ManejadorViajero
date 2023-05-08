@@ -1,0 +1,61 @@
+class manejadorViajero:
+    def __init__(self):
+        self.__listaViajeros=[]
+
+    
+
+    def agregarViajeros (self,viajero):
+        self.__listaViajeros.append(viajero)
+
+    def testViajero(self):
+        archivo=open('C:\\Users\\ville\\OneDrive\\Escritorio\\Python\\Ejercicio 2\Datos.csv')
+        reader=csv.reader(archivo,delimiter=';')
+        for fila in reader:
+                viajero1=ViajeroFrecuente(fila[0],fila[1],fila[2],fila[3],int(fila[4]))
+                self.agregarViajeros(viajero1)
+        archivo.close()
+
+    def buscarViajero(self, nviajero):
+            indice=0
+            while indice<(len(self.__listaViajeros)):
+                if self.__listaViajeros[indice].retornaNum()==nviajero:
+                    print('Nviajero: ',self.__listaViajeros[indice].retornaNum())
+                else:
+                    indice=indice+1
+            return indice
+    
+    def mostrarViajeros(self):
+        for i in range (len(self.__listaViajeros)):
+            print(self.__listaViajeros[i])
+
+    def menu (self):
+        nviajero=input('Ingrese un numero de viajero: ')
+        ind=mv.buscarViajero(nviajero)
+        print('Menú de opciones\n"a"-Consultar cantidad de millas\n"b"-Acumular millas\n"c"-Canjear millas\n"d"-salir ')
+        opcion=input('Opción: ')  
+        while (opcion !='d'):
+            if opcion == 'a':
+                print('cantidad de millas: {}' .format(self.__listaViajeros[ind-1].retornaMillas()))
+            elif opcion == 'b': 
+                self.__listaViajeros[ind-1].acumulaMillas()
+            elif opcion == 'c':
+                self.__listaViajeros[ind-1].canjearMillas()
+        return
+    def comparaViajeros(self):
+        n=len(self.__listaViajeros)
+        for i in range(len(self.__listaViajeros)):
+            if i==n:
+                return
+            elif i<n:
+                if(self.__listaViajeros[i]>self.__listaViajeros[i+1]):
+                    print('el viajero {} tiene mas puntos que el viajero siguiente'.format(self.__listaViajeros[i]))
+
+    def acumuladorMillas(self):
+        for i in range(len(self.__listaViajeros)):
+            millasNuevas=input('ingrese la cantidad de millas a sumar para el viajero: {}, '.format(self.__listaViajeros[i].retornaNom()),(self.__listaViajeros[i].retornaApe()))
+            self.__listaViajeros[i].__millas_acum=self.__listaViajeros[i]+millasNuevas
+
+    def canjearMillas(self):
+        for i in range(len(self.__listaViajeros)):
+            millasCanje=input('ingrese la cantidad de millas a canjear para el viajero: {}, '.format(self.__listaViajeros[i].retornaNom()),(self.__listaViajeros[i].retornaApe()))
+            self.__listaViajeros[i].__millas_acum=self.__listaViajeros[i]-millasCanje

@@ -1,0 +1,18 @@
+from Alumnos import alumno
+from ArregloNp import ArregloNumpy
+if __name__=='__main__':
+    A=alumno(44634956,'Villegas','Juan','LCC',2)
+    print(A)
+    arregloAlumnos=ArregloNumpy(3,8)
+    arregloAlumnos.testArregloAlumnos()
+    arregloAlumnos.mostrarArreglo()
+    mM=manejadorMaterias()
+    mM.testMaterias()
+    opc=input('\tMenú\na)-informar promedio con y sin aplazos\nb)-informar estudiantes que aprobaron una materia\nc)-obtener listado de alumnos ordenado\nOpción: ')
+    while opc=='a' or opc=='b' or opc=='c':
+        if opc=='a':
+            mM.generaPromedio()
+        elif(opc=='b'):
+            mM.informaMateria()
+        elif(opc=='c'):
+            arregloAlumnos.ordenaAlumnos()

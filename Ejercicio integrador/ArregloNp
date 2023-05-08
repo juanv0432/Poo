@@ -1,0 +1,51 @@
+import csv
+import numpy as np
+from Alumnos import alumno
+class ArregloNumpy:
+    __cantidad=0
+    __dimension=0
+    __incremento=8
+    def __init__(self,dim,incremento=8):
+        self.__Alumnos = np.empty(dim,dtype=alumno)
+        self.__cantidad=0
+        self.__dimension=dim
+        self.__incremento=incremento
+
+    def agregarAlumno(self,unAlumno):
+        if self.__cantidad==self.__dimension:
+            self.__dimension+=self.__incremento
+            self.__Alumnos.resize(self.__dimension)
+        self.__Alumnos[self.__cantidad]=unAlumno
+        self.__cantidad += 1
+
+    def testArregloAlumnos(self):
+        i=0
+        archivo=open('C:\\Users\\ville\\OneDrive\\Escritorio\\Python\\Ejercicio integrador\\alumnos.csv')
+        reader=csv.reader(archivo,delimiter=';')
+        for fila in reader:
+            if i!=0:
+                Alum=alumno(fila[0],fila[1],fila[2],fila[3],fila[4])
+                self.agregarAlumno(Alum)
+            else:
+                i+=1
+        archivo.close()
+    
+    def mostrarArreglo(self):
+        for i in range(self.__cantidad):
+            print(self.__Alumnos[i])
+            
+    def buscarAlum2(self,dni):
+        i=0
+        while i<self.__cantidad and dni!=self.__lista[i].getDni():
+            i+=1
+        if i!=self.__cantidad:
+            print ("{}       {}".format(self.__lista[i].get_dni(),self.__lista[i].get_nomap().ljust(17)),end="           ")
+        return self.__listaalum[i].getanio()
+    
+    def Mostar_Listado_Ordenado(self,listado_ordenado):
+        for alumno in listado_ordenado:
+            alumno.Muestra_Listado()
+    
+    def ordenaAlumnos(self):
+        listado_ordenado = sorted(self.__Alumnos)
+        self.Mostrar_Listado_Ordenado(listado_ordenado)

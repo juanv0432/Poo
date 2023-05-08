@@ -1,0 +1,16 @@
+from Viajerofrecuente import ViajeroFrecuente
+from ManejadorViajero import ViajeroFrecuente
+if __name__=='__main__':
+
+    viajero=ViajeroFrecuente(input('ingrese el numero de viajero: '), input('ingrese el DNI: '), input('ingrese el nombre: '), input('ingrese el apellido: '), 0)
+    mv=manejadorViajero()
+    mv.testViajero()
+    mv.mostrarViajeros()
+    mv.menu()
+    mv.comparaViajeros()
+    mv.acumuladorMillas()
+    mv.canjearMillas()
+    v=ViajeroFrecuente(0,0,'','',100)
+    if(v==100):
+        print('millas igual a 100')
+    v.acumularMillasNuevo()

@@ -1,0 +1,79 @@
+import csv
+from MateriasAprov import MateriasAprobadas
+class manejadorMaterias:
+    def __init__(self):
+        self.__lista=[]
+
+    def agregarMateias(self,MateriaAprobada):
+        self.__lista.append(MateriaAprobada)
+
+    def testMaterias(self):
+        archivo2=open('C:\\Users\\ville\\OneDrive\\Escritorio\\Python\\Ejercicio integrador\\materiasAprobadas.csv')
+        reader=csv.reader(archivo2,delimiter=';')
+        i=0
+        for fila in reader:
+            if i!=0:
+                Ma=MateriasAprobadas(fila[0],fila[1],fila[2],fila[3],fila[4])
+                self.agregarMateias(Ma)
+            else:
+                i+=1
+        archivo2.close()
+
+
+
+    
+    def generaPromedio(self):
+        dni=input('ingrese DNI del alumno: ')
+        lista_indices=[]
+        i=0
+        for fila in self.__lista:
+            if fila.getDni()==dni:
+                lista_indices.append(i)
+            i+=1 
+        if len(lista_indices)==0:
+            print ("No se encontró el Alumno buscado")
+        else:
+            prom=[0,0]
+            for cant in range (len(lista_indices)):
+                prom[0]+=self.__lista[lista_indices[cant]].getNota()                
+                if self.__lista[lista_indices[cant]].getAprov()=='E':
+                    if self.__lista[lista_indices[cant]].getNota()>=4:
+                        prom[1]+=self.__lista[lista_indices[cant]].getNota()
+                if self.__lista[lista_indices[cant]].getAprov()=='P':
+                    if self.__lista[lista_indices[cant]].getNota()>=7:
+                        prom[1]+=self.__lista[lista_indices[cant]].getNota()
+                if self.__lista[lista_indices[cant]].getAprov()=='X':
+                    if self.__lista[lista_indices[cant]].getNota()>=6:
+                        prom[1]+=self.__lista[lista_indices[cant]].getNota()
+            print ("El promedio del alumno con aplazos es "+str(prom[0]/len(lista_indices)))
+            print ("El promedio del alumno sin aplazos es "+str(prom[1]/len(lista_indices)))
+    
+    def buscarMateria(self,materia):
+        i=0
+        p=False
+        while i<len(self.__lista):
+            if i<len(self.__lista):
+                if materia==self.__lista[i].getNombre:
+                    p=True
+                    return p
+                else:
+                    p=False
+            else:
+                print('Usted escribió un nombre incorrecto de materia')
+        return p
+    
+    
+
+    
+    def informaMateria(self):
+        materia=input('Ingrese el nombre de la materia: ')
+        print ("DNI\tApellido y Nombre\tFecha\tNota\tAño que cursa\n")
+        for fila in self.__lista:
+            if materia.upper()==fila.getNombre():
+                if fila.getAprov=='P':
+                    if fila.getNota>=7:
+                        pos=self.buscarAlum2(fila.getDni)
+                    
+                else:
+                    print('No hay alumnos promocionales de la materia {}'.format(materia))
+        return    

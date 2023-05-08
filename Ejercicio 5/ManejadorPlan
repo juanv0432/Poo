@@ -1,0 +1,52 @@
+import csv
+from PlanAhorro import planAhorro
+class manejadorPlan:
+    def __init__(self):
+        self.__lista=[]
+
+    def agregarLista(self, plan):
+        self.__lista.append(plan)
+
+    def testPlan(self):
+        archivo=open('C:\\Users\\ville\\OneDrive\\Escritorio\\Python\\Ejercicio 5\\planes.csv')
+        reader=csv.reader(archivo,delimiter=';')
+        for fila in reader:
+            plan=planAhorro(int(fila[0]),str(fila[1]),str(fila[2]),float(fila[3]))
+            self.agregarLista(plan)
+        archivo.close()
+
+    def actualizarValor(self):
+        for i in range(len(self.__lista)):
+            print(len(self.__lista)-i)
+            print(self.__lista[i])
+            valor = float(input('Ingrese valor nuevo: '))
+            self.__lista[i].__valorVehiculo=valor
+        return()
+
+    def mostrarPlanes(self,importe):
+        for i in range(len(self.__lista)):
+            valor = self.__lista[i].getValorVehiculo()
+            cuotas = self.__lista[i].getCantCoutasPlan()
+            if((importe) > ((valor/cuotas)+valor*0.10)):
+                print(self.__lista[i])
+
+    def mostrarInfo(self):
+        for i in range(len(self.__lista)):
+            cuotasLic = self.__lista[i].getCantCuotasPagasNecesarias()
+            valor = self.__lista[i].getValorVehiculo()
+            cuotas = self.__lista[i].getCantCoutasPlan()
+            ImporteCuotas=((valor/cuotas)+valor*0.10)
+            monto=(cuotasLic*ImporteCuotas)
+        print(str(monto))
+
+    def modificaCuotasLic(self):
+        codigo=input('ingrese un codigo de vehiculo: ')
+        i=0
+        n=len(self.__lista)
+        while(i<n):
+            if codigo == self.__lista[i].getCod():
+                print('cantidad de cuotas a licitar antes del cambio: {}'.format(self.__lista[i].getCantCuotasPagasNecesarias()))
+                cambio=input('ingrese la cantidad de cuotas necesarias para licitar el vehiculo: ')
+                planAhorro.__cantCuotasPagasNecesarias=cambio
+            else:
+                i=i+1
